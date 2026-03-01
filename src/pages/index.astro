@@ -1,49 +1,276 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import "../styles/global.css";
+import { Image } from "astro:assets";
+import billete10 from "../assets/billete10.jpg";
+import billete20 from "../assets/billete20.jpg";
+import billete50 from "../assets/billete50.jpg";
+import qr from "../assets/qr.jpg";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title="Verifica Mi Billete Bolivia"
+			description="Verifica facil y rapido tu billete"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
-		<Header />
+		<header class="navbar">
+			<div class="logo">VMB<span>Bolivia</span></div>
+			<a href="#donaciones" class="btn-donate-top">
+				<svg
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					><path
+						d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+					></path></svg
+				>
+				Donar
+			</a>
+		</header>
+
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<h1>Verifica Mi Billete Bolivia</h1>
+				<p class="tagline">Verifica fácil y rápido tu billete</p>
+
+				<div class="glass-panel">
+					<form id="verificaForm">
+						<p>
+							Por favor, selecciona la denominación de tu billete:
+						</p>
+						<div class="denomination-selector">
+							<input
+								type="radio"
+								id="den-10"
+								name="denomination"
+								value="10"
+								checked
+							/>
+							<label for="den-10">10 Bs</label>
+							<input
+								type="radio"
+								id="den-20"
+								name="denomination"
+								value="20"
+							/>
+							<label for="den-20">20 Bs</label>
+							<input
+								type="radio"
+								id="den-50"
+								name="denomination"
+								value="50"
+							/>
+							<label for="den-50">50 Bs</label>
+						</div>
+						<p>
+							Por favor, ingresa el numero de serie de tu billete:
+						</p>
+						<div class="input-group">
+							<input
+								type="text"
+								id="serieNumber"
+								placeholder="Ingresa los números..."
+								maxlength="12"
+								required
+								autocomplete="off"
+							/>
+							<span class="suffix">B</span>
+						</div>
+						<button type="submit" class="btn-primary"
+							>Verificar Billete</button
+						>
+						<div id="result" class="result-message"></div>
+					</form>
+				</div>
+			</section>
+
+			<section id="billetes-inhabilitados" class="section-container">
+				<h2>Billetes Inhabilitados</h2>
+				<p>
+					A continuación mostramos la lista oficial inhabilitada por
+					el BCB
+				</p>
+				<div class="vertical-images">
+					<div class="image-card">
+						<Image
+							src={billete10}
+							alt="Billete de 10 Bs inhabilitado"
+						/>
+					</div>
+					<div class="image-card">
+						<Image
+							src={billete20}
+							alt="Billete de 20 Bs inhabilitado"
+						/>
+					</div>
+					<div class="image-card">
+						<Image
+							src={billete50}
+							alt="Billete de 50 Bs inhabilitado"
+						/>
+					</div>
+				</div>
+			</section>
+
+			<section id="donaciones" class="section-container">
+				<h2>Apoya Nuestro Proyecto</h2>
+				<p>
+					Si esta herramienta te fue de ayuda, considera apoyarnos con
+					una donación para mantener el sitio activo.
+				</p>
+				<div class="qr-container">
+					<div class="qr-wrapper">
+						<!-- Instrucción para el usuario: cambia la URL en src y quita la clase hidden -->
+						<Image src={qr} alt="QR de Donación" id="qr-image" />
+					</div>
+					<p
+						style="margin: 0; font-weight: 600; color: var(--primary);"
+					>
+						¡Gracias por tu apoyo!
+					</p>
+				</div>
+			</section>
 		</main>
-		<Footer />
+
+		<script>
+			// Base de datos de rangos inhabilitados
+			// El formato es: 'denominacion': [[inicio1, fin1], [inicio2, fin2], ...]
+			const rangosInhabilitados: Record<string, [number, number][]> = {
+				"10": [
+					[67250001, 67700000],
+					[69050001, 69500000],
+					[69550001, 69950000],
+					[69950001, 70400000],
+					[70400001, 70850000],
+					[70850001, 71300000],
+					[76310012, 85139995],
+					[86400001, 86850000],
+					[90900001, 91350000],
+					[91800001, 92250000],
+				],
+				"20": [
+					[87280145, 91646549],
+					[96650001, 97100000],
+					[99800001, 100250000],
+					[100250001, 100700000],
+					[109250001, 109700000],
+					[110600001, 111050000],
+					[111050001, 111500000],
+					[111950001, 112400000],
+					[112400001, 112850000],
+					[112850001, 113300000],
+					[114200001, 114650000],
+					[114650001, 115100000],
+					[115100001, 115550000],
+					[118750001, 119150000],
+					[119150001, 119600000],
+					[120500001, 120950000],
+				],
+				"50": [
+					[77100001, 77550000],
+					[78000001, 78450000],
+					[78900001, 96350000],
+					[96350001, 96800000],
+					[96800001, 97250000],
+					[98150001, 98600000],
+					[104900001, 105350000],
+					[105350001, 105800000],
+					[106700001, 107150000],
+					[107600001, 108050000],
+					[108050001, 108500000],
+					[109400001, 109850000],
+				],
+			};
+
+			// Función interna requerida
+			// Retorna verdadero (true) si el billete NO está en la lista de inhabilitados
+			function verificarbillete(
+				serie: string,
+				denomination: string,
+			): boolean {
+				// Convertimos la serie a un número entero para hacer la comparación
+				const numeroSerie = parseInt(serie, 10);
+
+				// Buscamos los rangos inhabilitados para esta denominación
+				const rangos = rangosInhabilitados[denomination] || [];
+
+				// Comprobamos si el número de la serie existe dentro de algún rango
+				for (const rango of rangos) {
+					const [inicio, fin] = rango;
+					if (numeroSerie >= inicio && numeroSerie <= fin) {
+						// El billete está en un rango inhabilitado, ¡es falso o robado!
+						return false;
+					}
+				}
+
+				// Si no coincidió con ningún rango peligroso, pasa como válido
+				return true;
+			}
+
+			const form = document.getElementById("verificaForm");
+			const resultDiv = document.getElementById("result");
+			const serieInput = document.getElementById("serieNumber");
+
+			if (form && resultDiv && serieInput) {
+				const inputEl = serieInput as HTMLInputElement;
+
+				// Limitar input a solo números en tiempo real
+				inputEl.addEventListener("input", (e) => {
+					let val = inputEl.value;
+					val = val.replace(/[^0-9]/g, "");
+					inputEl.value = val;
+				});
+
+				form.addEventListener("submit", (e) => {
+					e.preventDefault();
+
+					const serieNumber = inputEl.value.trim();
+
+					if (!serieNumber) {
+						resultDiv.textContent =
+							"⛔ Ingresa un número de serie válido.";
+						resultDiv.className = "result-message error";
+						return;
+					}
+
+					// Obtener la denominación seleccionada
+					const denominationEl = document.querySelector(
+						'input[name="denomination"]:checked',
+					) as HTMLInputElement;
+					const denominationValue = denominationEl
+						? denominationEl.value
+						: "10";
+
+					// Verificar el billete llamando a la función
+					const esValido = verificarbillete(
+						serieNumber,
+						denominationValue,
+					);
+
+					if (esValido) {
+						resultDiv.innerHTML = `<strong>Verificación exitosa:</strong><br>El billete de ${denominationValue} Bs de serie ${serieNumber} es válido.`;
+						resultDiv.className = "result-message success";
+					} else {
+						resultDiv.innerHTML = `<strong>Alerta:</strong><br>Este billete pertenece a la lista inhabilitada por el BCB`;
+						resultDiv.className = "result-message error";
+					}
+				});
+			}
+		</script>
 	</body>
 </html>
